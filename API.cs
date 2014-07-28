@@ -12,7 +12,7 @@ namespace SteamAPIAbstraction
 {
 	class API
 	{
-		public static List<Profile> ParseInput(string input)
+		public static List<Profile> ExtractProfilesFromStatus(string input)
 		{
 			List<Profile> res = new List<Profile>();
 
@@ -23,7 +23,7 @@ namespace SteamAPIAbstraction
 			{
 				string name = match.Groups[1].Value;
 
-				string id = SteamId2IdConverter(match.Groups[2].Value).ToString();
+				long id = long.Parse(SteamId2IdConverter(match.Groups[2].Value).ToString());
 
 				res.Add(new Profile(id, name));
 			}

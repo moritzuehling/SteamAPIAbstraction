@@ -1,4 +1,3 @@
-﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using Newtonsoft.Json;
 
 namespace SteamAPIAbstraction
 {
@@ -13,6 +13,7 @@ namespace SteamAPIAbstraction
 	{
 		static void Main(string[] args)
 		{
+	
 			if (Debugger.IsAttached)
 			{
 				Console.SetIn(new StreamReader("test.txt"));
@@ -37,7 +38,7 @@ namespace SteamAPIAbstraction
 					input += line + Environment.NewLine;
 				}
 
-				persons = API.ParseInput(input);
+				persons = API.ExtractProfilesFromStatus(input);
 			}
 			else if (type == "lines")
 			{
@@ -49,7 +50,10 @@ namespace SteamAPIAbstraction
 					if (p == "end")
 						break;
 
-					persons.Add(new Profile(p));
+					long steamid = 0;
+
+					if(long.TryParse(p, out steamid ))
+						persons.Add(new Profile(steamid));
 				}
 			}
 			else
@@ -76,43 +80,8 @@ namespace SteamAPIAbstraction
 
 			Task.WaitAll(results.ToArray());
 
-			List<Lobby> lobbies = new List<Lobby>();
 
-			Console.Error.WriteLine("Waiting for download to finsih....");
-			lobbies.AddRange(persons.Select(a => new Lobby(a)));
-
-			Console.Error.WriteLine("Sorting....");
-			while (true)
-			{
-				bool changeOccured = false;
-
-				for (int i = 0; i < lobbies.Count; i++)
-				{
-					Lobby l1 = lobbies[i];
-					for (int j = 0; j < lobbies.Count; j++)
-					{
-						Lobby l2 = lobbies[j];
-
-						if (l1 != l2 && l1.canBeJoined(l2))
-						{
-							Lobby l3 = new Lobby(l1.Members, l2.Members);
-							lobbies.Remove(l1);
-							lobbies.Remove(l2);
-							lobbies.Add(l3);
-							changeOccured = true;
-							break;
-						}
-					}
-					if (changeOccured)
-						break;
-				}
-
-				if (!changeOccured)
-					break;
-
-				changeOccured = false;
-			}
-
+			/*
 			Console.Error.WriteLine("Serializing....");
 			JsonSerializer serializer = new JsonSerializer();
 
@@ -127,10 +96,29 @@ namespace SteamAPIAbstraction
 			serializer.Serialize(writer, dummyDic);
 
 			Console.WriteLine(sb.ToString());
-
-
+			
+			*/
 		}
 
+		static void MongoMain()
+		{
+			var noah = Profile.GetFromDatabase (76561198134960355L);
 
+
+
+			noah.Download (true);
+
+
+
+
+			while (!noah.DownloadFinished) {
+				System.Threading.Thread.Sleep (100);
+			};
+
+			
+			Console.WriteLine (noah.Friends.Count);
+
+			Database.Save (noah);
+		}
 	}
 }

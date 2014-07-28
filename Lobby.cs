@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace SteamAPIAbstraction
 {
-	class Lobby
+	public class Lobby
 	{
 		public List<Profile> Members = new List<Profile>();
-
 		private List<Profile> friends = new List<Profile>();
 
 		public Lobby(Profile a)

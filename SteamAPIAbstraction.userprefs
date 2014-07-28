@@ -1,0 +1,28 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Game.cs">
+    <Files>
+      <File FileName="Program.cs" Line="107" Column="4" />
+      <File FileName="Database.cs" Line="90" Column="2" />
+      <File FileName="Profile.cs" Line="194" Column="1" />
+      <File FileName="Game.cs" Line="56" Column="5" />
+      <File FileName="API.cs" Line="15" Column="56" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="SteamAPIAbstraction" expanded="True">
+            <Node name="Game.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/home/moritz/Documents/dev/SteamAPIAbstraction/Profile.cs" line="142" column="20" />
+      <Breakpoint file="/home/moritz/Documents/dev/SteamAPIAbstraction/Profile.cs" line="141" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
